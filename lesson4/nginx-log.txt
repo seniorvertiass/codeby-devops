@@ -1,0 +1,62 @@
+Script started on 2026-07-14 14:59:38+03:00 [TERM="xterm-256color" TTY="/dev/pts/2" COLUMNS="120" LINES="30"]
+[?2004h]0;root@Ann: /home/administratorroot@Ann:/home/administrator# systemctl daemon-relo[K[K[K[Kloa[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Ksystemctl daemon-reload
+[?2004l[?2004h]0;root@Ann: /home/administratorroot@Ann:/home/administrator# systemctl enable my-ngn[Kinx.service
+[?2004lCreated symlink /etc/systemd/system/multi-user.target.wants/my-nginx.service → /etc/systemd/system/my-nginx.service.
+[?2004h]0;root@Ann: /home/administratorroot@Ann:/home/administrator# systemctl start my-nginx.seri[Kvice
+[?2004l[?2004h]0;root@Ann: /home/administratorroot@Ann:/home/administrator# systemctl status my-nginx.service
+[?2004l[?1h=[0;1;32m●[0m my-nginx.service - My Custom Nginx Server[m
+     Loaded: loaded (/etc/systemd/system/my-nginx.service; enabled; vendor preset: enabled)[m
+     Active: [0;1;32mactive (running)[0m since Tue 2026-07-14 15:00:16 MSK; 5s ago[m
+    Process: 3102 ExecStartPre=/usr/sbin/nginx -t (code=exited, status=0/SUCCESS)[m
+    Process: 3103 ExecStart=/usr/sbin/nginx (code=exited, status=0/SUCCESS)[m
+   Main PID: 3104 (nginx)[m
+      Tasks: 17 (limit: 9025)[m
+     Memory: 14.7M[m
+        CPU: 53ms[m
+     CGroup: /system.slice/my-nginx.service[m
+             ├─3104 "nginx: master process /usr/sbin/nginx"[m
+             ├─3105 "nginx: worker process"[m
+             ├─3106 "nginx: worker process"[m
+             ├─3107 "nginx: worker process"[m
+             ├─3108 "nginx: worker process"[m
+             ├─3109 "nginx: worker process"[m
+             ├─3110 "nginx: worker process"[m
+             ├─3111 "nginx: worker process"[m
+             ├─3112 "nginx: worker process"[m
+             ├─3113 "nginx: worker process"[m
+             ├─3114 "nginx: worker process"[m
+             ├─3115 "nginx: worker process"[m
+             ├─3116 "nginx: worker process"[m
+             ├─3117 "nginx: worker process"[m
+             ├─3118 "nginx: worker process"[m
+             ├─3119 "nginx: worker process"[m
+             └─3120 "nginx: worker process"[m
+[m
+Jul 14 15:00:16 Ann systemd[1]: Starting My Custom Nginx Server...[m
+[7mlines 1-29[27m[K[K[?1l>
+[?2004h]0;root@Ann: /home/administratorroot@Ann:/home/administrator# systemctl is-enabled my-nginx.service
+[?2004lenabled
+[?2004h]0;root@Ann: /home/administratorroot@Ann:/home/administrator# ps =a[K[Kaux | grep nginx
+[?2004lroot        3044  0.0  0.0   3236  2256 pts/2    S+   14:59   0:00 script [01;31m[Knginx[m[K-log.txt
+root        3104  0.0  0.0  55248  2384 ?        Ss   15:00   0:00 [01;31m[Knginx[m[K: master process /usr/sbin/[01;31m[Knginx[m[K
+www-data    3105  0.0  0.0  55884  5712 ?        S    15:00   0:00 [01;31m[Knginx[m[K: worker process
+www-data    3106  0.0  0.0  55884  5712 ?        S    15:00   0:00 [01;31m[Knginx[m[K: worker process
+www-data    3107  0.0  0.0  55884  5712 ?        S    15:00   0:00 [01;31m[Knginx[m[K: worker process
+www-data    3108  0.0  0.0  55884  5712 ?        S    15:00   0:00 [01;31m[Knginx[m[K: worker process
+www-data    3109  0.0  0.0  55884  5712 ?        S    15:00   0:00 [01;31m[Knginx[m[K: worker process
+www-data    3110  0.0  0.0  55884  5712 ?        S    15:00   0:00 [01;31m[Knginx[m[K: worker process
+www-data    3111  0.0  0.0  55884  5712 ?        S    15:00   0:00 [01;31m[Knginx[m[K: worker process
+www-data    3112  0.0  0.0  55884  5712 ?        S    15:00   0:00 [01;31m[Knginx[m[K: worker process
+www-data    3113  0.0  0.0  55884  5712 ?        S    15:00   0:00 [01;31m[Knginx[m[K: worker process
+www-data    3114  0.0  0.0  55884  5712 ?        S    15:00   0:00 [01;31m[Knginx[m[K: worker process
+www-data    3115  0.0  0.0  55884  5712 ?        S    15:00   0:00 [01;31m[Knginx[m[K: worker process
+www-data    3116  0.0  0.0  55884  5712 ?        S    15:00   0:00 [01;31m[Knginx[m[K: worker process
+www-data    3117  0.0  0.0  55884  5712 ?        S    15:00   0:00 [01;31m[Knginx[m[K: worker process
+www-data    3118  0.0  0.0  55884  5712 ?        S    15:00   0:00 [01;31m[Knginx[m[K: worker process
+www-data    3119  0.0  0.0  55884  5712 ?        S    15:00   0:00 [01;31m[Knginx[m[K: worker process
+www-data    3120  0.0  0.0  55884  5712 ?        S    15:00   0:00 [01;31m[Knginx[m[K: worker process
+root        3126  0.0  0.0   4036  2440 pts/3    S+   15:00   0:00 grep --color=auto [01;31m[Knginx[m[K
+[?2004h]0;root@Ann: /home/administratorroot@Ann:/home/administrator# exit
+[?2004lexit
+
+Script done on 2026-07-14 15:01:03+03:00 [COMMAND_EXIT_CODE="0"]

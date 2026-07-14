@@ -1,0 +1,61 @@
+Script started on 2026-07-14 14:27:49+03:00 [TERM="xterm-256color" TTY="/dev/pts/2" COLUMNS="120" LINES="30"]
+[?2004h]0;root@Ann: /home/administratorroot@Ann:/home/administrator# ps aux
+[?2004lUSER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root           1  0.0  0.1 165816 11536 ?        Ss   14:18   0:00 /sbin/init
+root           2  0.0  0.0   3180  2204 hvc0     Sl+  14:18   0:00 /init
+root           6  0.0  0.0   3196  2128 hvc0     Sl+  14:18   0:00 plan9 --control-socket 7 --log-level 4 --server-fd 8 
+root          60  0.0  0.2  64212 18476 ?        S<s  14:18   0:00 /lib/systemd/systemd-journald
+root          84  0.0  0.0  23104  6200 ?        Ss   14:18   0:00 /lib/systemd/systemd-udevd
+systemd+      91  0.0  0.1  25556 13796 ?        Ss   14:18   0:00 /lib/systemd/systemd-resolved
+systemd+      98  0.0  0.0  89372  7572 ?        Ssl  14:18   0:00 /lib/systemd/systemd-timesyncd
+root         187  0.0  0.0   4316  2872 ?        Ss   14:18   0:00 /usr/sbin/cron -f -P
+message+     189  0.0  0.0   8548  4996 ?        Ss   14:18   0:00 @dbus-daemon --system --address=systemd: --nofork --n
+root         194  0.0  0.2  30104 19676 ?        Ss   14:18   0:00 /usr/bin/python3 /usr/bin/networkd-dispatcher --run-s
+syslog       195  0.0  0.0 222412  5616 ?        Ssl  14:18   0:00 /usr/sbin/rsyslogd -n -iNONE
+root         199  0.0  0.1  15336  7744 ?        Ss   14:18   0:00 /lib/systemd/systemd-logind
+root         226  0.0  0.0   3204  2272 tty1     Ss+  14:18   0:00 /sbin/agetty -o -p -- \u --noclear tty1 linux
+root         227  0.0  0.1  15444  9476 ?        Ss   14:18   0:00 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startu
+root         228  0.0  0.2 107156 22088 ?        Ssl  14:18   0:00 /usr/bin/python3 /usr/share/unattended-upgrades/unatt
+root         303  0.0  0.0   3180  1104 ?        Ss   14:18   0:00 /init
+root         304  0.0  0.0   3196  1116 ?        S    14:18   0:00 /init
+adminis+     305  0.0  0.0   6260  5564 pts/0    Ss   14:18   0:00 -bash
+root         306  0.0  0.0   7540  5140 pts/1    Ss   14:18   0:00 /bin/login -f
+adminis+     349  0.0  0.1  16976  9756 ?        Ss   14:18   0:00 /lib/systemd/systemd --user
+adminis+     350  0.0  0.0 168872  5152 ?        S    14:18   0:00 (sd-pam)
+adminis+     360  0.0  0.0   6112  5260 pts/1    S+   14:18   0:00 -bash
+root         508  0.0  0.0   8932  5744 pts/0    S+   14:26   0:00 sudo -s
+root         509  0.0  0.0   8932  2332 pts/2    Ss   14:26   0:00 sudo -s
+root         510  0.0  0.0   5056  4236 pts/2    S    14:26   0:00 /bin/bash
+root         545  0.0  0.0   3236  2252 pts/2    R+   14:27   0:00 script ps-log.txt
+root         546  0.0  0.0   5056  4140 pts/3    Ss   14:27   0:00 bash -i
+root         553  0.0  0.0   7492  3348 pts/3    R+   14:27   0:00 ps aux
+[?2004h]0;root@Ann: /home/administratorroot@Ann:/home/administrator# 
+[?2004l[?2004h]0;root@Ann: /home/administratorroot@Ann:/home/administrator# exit
+[?2004lexit
+
+Script done on 2026-07-14 14:27:57+03:00 [COMMAND_EXIT_CODE="0"]
+Script started on 2026-07-14 14:28:36+03:00 [TERM="xterm-256color" TTY="/dev/pts/2" COLUMNS="120" LINES="30"]
+[?2004h]0;root@Ann: /home/administratorroot@Ann:/home/administrator# ps -aux | grep admini*
+[?2004l[01;31m[Kadmini[m[Ks+     305  0.0  0.0   6260  5564 pts/0    Ss   14:18   0:00 -bash
+[01;31m[Kadmini[m[Ks+     349  0.0  0.1  16976  9756 ?        Ss   14:18   0:00 /lib/systemd/systemd --user
+[01;31m[Kadmini[m[Ks+     350  0.0  0.0 168872  5152 ?        S    14:18   0:00 (sd-pam)
+[01;31m[Kadmini[m[Ks+     360  0.0  0.0   6112  5260 pts/1    S+   14:18   0:00 -bash
+root         566  0.0  0.0   4036  2408 pts/3    S+   14:28   0:00 grep --color=auto [01;31m[Kadmini[m[K*
+[?2004h]0;root@Ann: /home/administratorroot@Ann:/home/administrator# exit
+[?2004lexit
+
+Script done on 2026-07-14 14:28:47+03:00 [COMMAND_EXIT_CODE="0"]
+Script started on 2026-07-14 14:29:30+03:00 [TERM="xterm-256color" TTY="/dev/pts/2" COLUMNS="120" LINES="30"]
+[?2004h]0;root@Ann: /home/administratorroot@Ann:/home/administrator# top -b -n 1 > 1 [K[Ktop_output.txt &
+[?2004l[1] 580
+[?2004h]0;root@Ann: /home/administratorroot@Ann:/home/administrator# jobs
+[?2004l[1]+  Done                    top -b -n 1 > top_output.txt
+[?2004h]0;root@Ann: /home/administratorroot@Ann:/home/administrator# kill %1
+[?2004lbash: kill: %1: no such job
+[?2004h]0;root@Ann: /home/administratorroot@Ann:/home/administrator# kill %1[K[K[K[K[K[K[Kkill 580
+[?2004lbash: kill: (580) - No such process
+[?2004h]0;root@Ann: /home/administratorroot@Ann:/home/administrator# pkill top
+[?2004l[?2004h]0;root@Ann: /home/administratorroot@Ann:/home/administrator# exit
+[?2004lexit
+
+Script done on 2026-07-14 14:30:43+03:00 [COMMAND_EXIT_CODE="1"]
