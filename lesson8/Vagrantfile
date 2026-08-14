@@ -1,0 +1,36 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+DOMAIN_NAME = "nosyrev.local"
+
+Vagrant.configure("2") do |config|
+  # Настройка сервера
+  config.vm.define "server" do |server|
+    server.vm.box = "ubuntu/jammy64"
+    server.vm.hostname = "server"
+    server.vm.network "private_network", ip: "192.168.56.10"
+    server.vm.network "forwarded_port", guest: 443, host: 8443
+    server.vm.network "forwarded_port", guest: 80, host: 8080
+    
+    server.vm.provider "virtualbox" do |vb|
+      vb.memory = "512"
+      vb.cpus = 1
+    end
+    
+    server.vm.provision "shell", path: "provision-server.sh", args: [DOMAIN_NAME]
+  end
+
+  # Настройка клиента
+  config.vm.define "client" do |client|
+    client.vm.box = "ubuntu/jammy64"
+    client.vm.hostname = "client"
+    client.vm.network "private_network", ip: "192.168.56.20"
+    
+    client.vm.provider "virtualbox" do |vb|
+      vb.memory = "256"
+      vb.cpus = 1
+    end
+    
+    client.vm.provision "shell", path: "provision-client.sh", args: [DOMAIN_NAME, "192.168.56.10"]
+  end
+end
