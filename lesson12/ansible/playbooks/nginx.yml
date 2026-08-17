@@ -1,0 +1,25 @@
+---
+- name: Configure web server
+  hosts: all
+  become: true
+
+  tasks:
+
+    - name: Install wget, htop and nginx
+      ansible.builtin.apt:
+        name:
+          - wget
+          - htop
+          - nginx
+        state: present
+        update_cache: true
+
+    - name: Start and enable nginx
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true
+
+    - name: Show environment
+      ansible.builtin.debug:
+        msg: "This host is in {{ deployment_environment }} environment"

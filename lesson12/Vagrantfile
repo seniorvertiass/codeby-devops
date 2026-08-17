@@ -1,0 +1,43 @@
+Vagrant.configure("2") do |config|
+
+  # Отключаем стандартную папку /vagrant.
+  # Она не нужна для данного задания.
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+  config.vm.box = "ubuntu/jammy64"
+
+  # =========================
+  # DEV
+  # =========================
+
+  config.vm.define "dev" do |dev|
+    dev.vm.hostname = "dev"
+
+    dev.vm.network "private_network",
+      ip: "192.168.56.30"
+
+    dev.vm.provider "virtualbox" do |vb|
+      vb.name = "lesson12-dev"
+      vb.memory = 1024
+      vb.cpus = 1
+    end
+  end
+
+  # =========================
+  # PROD
+  # =========================
+
+  config.vm.define "prod" do |prod|
+    prod.vm.hostname = "prod"
+
+    prod.vm.network "private_network",
+      ip: "192.168.56.40"
+
+    prod.vm.provider "virtualbox" do |vb|
+      vb.name = "lesson12-prod"
+      vb.memory = 1024
+      vb.cpus = 1
+    end
+  end
+
+end
