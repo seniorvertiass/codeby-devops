@@ -1,0 +1,2 @@
+[production]
+prod ansible_host=192.168.56.40 ansible_user=vagrant ansible_private_key_file=/home/administrator/lesson12/.vagrant/machines/prod/virtualbox/private_key deployment_environment=prod
