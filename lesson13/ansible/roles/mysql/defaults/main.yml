@@ -1,0 +1,18 @@
+---
+mysql_database: wordpress
+mysql_user: wordpress
+mysql_password: wordpress_password
+
+mysql_package_debian:
+  - mysql-server
+  - python3-pymysql
+
+mysql_package_redhat:
+  - mariadb-server
+  - python3-PyMySQL
+
+mysql_service_debian: mysql
+mysql_service_redhat: mariadb
+
+mysql_socket_debian: /var/run/mysqld/mysqld.sock
+mysql_socket_redhat: /var/lib/mysql/mysql.sock
