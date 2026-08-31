@@ -1,0 +1,5 @@
+---
+- name: Restart Apache
+  ansible.builtin.service:
+    name: "{{ apache_service_debian if ansible_os_family == 'Debian' else apache_service_redhat }}"
+    state: restarted

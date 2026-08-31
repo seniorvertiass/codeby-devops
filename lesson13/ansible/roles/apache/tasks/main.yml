@@ -1,0 +1,33 @@
+---
+- name: Install Apache on Debian-based systems
+  ansible.builtin.apt:
+    name: "{{ apache_package_debian }}"
+    state: present
+    update_cache: true
+  when: ansible_os_family == "Debian"
+
+- name: Install Apache on RedHat-based systems
+  ansible.builtin.dnf:
+    name: "{{ apache_package_redhat }}"
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Start Apache on Debian-based systems
+  ansible.builtin.service:
+    name: "{{ apache_service_debian }}"
+    state: started
+    enabled: true
+  when: ansible_os_family == "Debian"
+
+- name: Start Apache on RedHat-based systems
+  ansible.builtin.service:
+    name: "{{ apache_service_redhat }}"
+    state: started
+    enabled: true
+  when: ansible_os_family == "RedHat"
+
+- name: Create Apache document root
+  ansible.builtin.file:
+    path: "{{ apache_document_root }}"
+    state: directory
+    mode: "0755"

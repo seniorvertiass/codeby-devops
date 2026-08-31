@@ -1,0 +1,8 @@
+---
+apache_package_debian: apache2
+apache_package_redhat: httpd
+
+apache_service_debian: apache2
+apache_service_redhat: httpd
+
+apache_document_root: /var/www/html

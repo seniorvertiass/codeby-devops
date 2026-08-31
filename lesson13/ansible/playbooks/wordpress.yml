@@ -1,0 +1,8 @@
+---
+- name: Deploy WordPress infrastructure
+  hosts: wordpress
+  become: true
+
+  roles:
+    - mysql
+    - apache

@@ -1,0 +1,44 @@
+---
+- name: Install MySQL packages on Debian
+  ansible.builtin.apt:
+    name: "{{ mysql_package_debian }}"
+    state: present
+    update_cache: true
+  when: ansible_os_family == "Debian"
+
+- name: Install MariaDB packages on RedHat
+  ansible.builtin.dnf:
+    name: "{{ mysql_package_redhat }}"
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Start MySQL service on Debian
+  ansible.builtin.service:
+    name: "{{ mysql_service_debian }}"
+    state: started
+    enabled: true
+  when: ansible_os_family == "Debian"
+
+- name: Start MariaDB service on RedHat
+  ansible.builtin.service:
+    name: "{{ mysql_service_redhat }}"
+    state: started
+    enabled: true
+  when: ansible_os_family == "RedHat"
+
+- name: Create WordPress database
+  community.mysql.mysql_db:
+    name: "{{ mysql_database }}"
+    state: present
+    login_user: root
+    login_unix_socket: "{{ mysql_socket_debian if ansible_os_family == 'Debian' else mysql_socket_redhat }}"
+
+- name: Create WordPress database user
+  community.mysql.mysql_user:
+    name: "{{ mysql_user }}"
+    password: "{{ mysql_password }}"
+    priv: "{{ mysql_database }}.*:ALL"
+    host: "%"
+    state: present
+    login_user: root
+    login_unix_socket: "{{ mysql_socket_debian if ansible_os_family == 'Debian' else mysql_socket_redhat }}"
