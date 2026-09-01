@@ -1,0 +1,134 @@
+Script started on 2026-08-31 22:54:42+03:00 [TERM="xterm-256color" TTY="/dev/pts/3" COLUMNS="188" LINES="41"]
+[?2004h]0;root@Ann: /home/administrator/lesson19root@Ann:/home/administrator/lesson19# [7mkubectl version --client[27mkubectl version --client
+[?2004lClient Version: v1.37.0
+Kustomize Version: v5.8.1
+[?2004h]0;root@Ann: /home/administrator/lesson19root@Ann:/home/administrator/lesson19# [7mkubectl version --client[27m[1Pkubectl version --clien[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[7mminikube version[27mminikube version
+[?2004lminikube version: v1.38.1
+commit: c93a4cb9311efc66b90d33ea03f75f2c4120e9b0
+[?2004h]0;root@Ann: /home/administrator/lesson19root@Ann:/home/administrator/lesson19# [7mkind version[27mkind version
+[?2004lkind v0.34.0-alpha+440e1abb2bdc24 go1.26.7 linux/amd64
+[?2004h]0;root@Ann: /home/administrator/lesson19root@Ann:/home/administrator/lesson19# [7mminikube start --driver=docker[27m
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cminikube start --driver=docker --force
+[?2004l😄  minikube v1.38.1 on Ubuntu 22.04 (kvm/amd64)
+❗  minikube skips various validations when --force is supplied; this may lead to unexpected behavior
+✨  Using the docker driver based on existing profile
+🛑  The "docker" driver should not be used with root privileges. If you wish to continue as root, use --force.
+💡  If you are running minikube within a VM, consider using --driver=none:
+📘    https://minikube.sigs.k8s.io/docs/reference/drivers/none/
+💡  Tip: To remove this root owned cluster, run: sudo minikube delete
+👍  Starting "minikube" primary control-plane node in "minikube" cluster
+🚜  Pulling base image v0.0.50 ...
+[?25l[K🔄  Restarting existing docker container for "minikube" ...[37m|[0m[K🔄  Restarting existing docker container for "minikube" ...[37m/[0m[K🔄  Restarting existing docker container for "minikube" ...[37m-[0m[K🔄  Restarting existing docker container for "minikube" ...[37m\[0m[K🔄  Restarting existing docker container for "minikube" ...[37m|[0m[K🔄  Restarting existing docker container for "minikube" ...[37m/[0m[K🔄  Restarting existing docker container for "minikube" ...[37m-[0m[K🔄  Restarting existing docker container for "minikube" ...[37m\[0m[K🔄  Restarting existing docker container for "minikube" ...[37m|[0m[K🔄  Restarting existing docker container for "minikube" ...[37m/[0m[K🔄  Restarting existing docker container for "minikube" ...[37m-[0m[K🔄  Restarting existing docker container for "minikube" ...[37m\[0m[K🔄  Restarting existing docker container for "minikube" ...[37m|[0m[K🔄  Restarting existing docker container for "minikube" ...[37m/[0m[K🔄  Restarting existing docker container for "minikube" ...[37m-[0m[K🔄  Restarting existing docker container for "minikube" ...[37m\[0m[K🔄  Restarting existing docker container for "minikube" ...[37m|[0m[K🔄  Restarting existing docker container for "minikube" ...[37m/[0m[K🔄  Restarting existing docker container for "minikube" ...[37m-[0m[K🔄  Restarting existing docker container for "minikube" ...[37m\[0m[K🔄  Restarting existing docker container for "minikube" ...[37m|[0m[K🔄  Restarting existing docker container for "minikube" ...[37m/[0m[K🔄  Restarting existing docker container for "minikube" ...[37m-[0m[K🔄  Restarting existing docker container for "minikube" ...[37m\[0m[K🔄  Restarting existing docker container for "minikube" ...[37m|[0m[K🔄  Restarting existing docker container for "minikube" ...[37m/[0m[K🔄  Restarting existing docker container for "minikube" ...[37m-[0m[K🔄  Restarting existing docker container for "minikube" ...[37m\[0m[K🔄  Restarting existing docker container for "minikube" ...[37m|[0m[K🔄  Restarting existing docker container for "minikube" ...[37m/[0m[K🔄  Restarting existing docker container for "minikube" ...[37m-[0m[K🔄  Restarting existing docker container for "minikube" ...[37m\[0m[K🔄  Restarting existing docker container for "minikube" ...[37m|[0m[K🔄  Restarting existing docker container for "minikube" ...[37m/[0m[K🔄  Restarting existing docker container for "minikube" ...[37m-[0m[K🔄  Restarting existing docker container for "minikube" ...[37m\[0m[K🔄  Restarting existing docker container for "minikube" ...[37m|[0m[K🔄  Restarting existing docker container for "minikube" ...[37m/[0m[K🔄  Restarting existing docker container for "minikube" ...[37m-[0m[K🔄  Restarting existing docker container for "minikube" ...[37m\[0m[K🔄  Restarting existing docker container for "minikube" ...[37m|[0m[K🔄  Restarting existing docker container for "minikube" ...[37m/[0m[K🔄  Restarting existing docker container for "minikube" ...[37m-[0m[K🔄  Restarting existing docker container for "minikube" ...[37m\[0m[K🔄  Restarting existing docker container for "minikube" ...[37m|[0m[K🔄  Restarting existing docker container for "minikube" ...[37m/[0m[K🔄  Restarting existing docker container for "minikube" ...[37m-[0m[K🔄  Restarting existing docker container for "minikube" ...[37m\[0m[K🔄  Restarting existing docker container for "minikube" ...[37m|[0m[K🔄  Restarting existing docker container for "minikube" ...[37m/[0m[K🔄  Restarting existing docker container for "minikube" ...[37m-[0m[K🔄  Restarting existing docker container for "minikube" ...[37m\[0m[K🔄  Restarting existing docker container for "minikube" ...[37m|[0m[K🔄  Restarting existing docker container for "minikube" ...[37m/[0m[K🔄  Restarting existing docker container for "minikube" ...[37m-[0m[K🔄  Restarting existing docker container for "minikube" ...[37m\[0m[K🔄  Restarting existing docker container for "minikube" ...[37m|[0m[K🔄  Restarting existing docker container for "minikube" ...[37m/[0m[K🔄  Restarting existing docker container for "minikube" ...[37m-[0m[K🔄  Restarting existing docker container for "minikube" ...[37m\[0m[K🔄  Restarting existing docker container for "minikube" ...[37m|[0m[K🔄  Restarting existing docker container for "minikube" ...[37m/[0m[K🔄  Restarting existing docker container for "minikube" ...[37m-[0m[K🔄  Restarting existing docker container for "minikube" ...[37m\[0m[K🔄  Restarting existing docker container for "minikube" ...[37m|[0m[K🔄  Restarting existing docker container for "minikube" ...[37m/[0m[K🔄  Restarting existing docker container for "minikube" ...[37m-[0m[K🔄  Restarting existing docker container for "minikube" ...[37m\[0m[K🔄  Restarting existing docker container for "minikube" ...[37m|[0m[K🔄  Restarting existing docker container for "minikube" ...[37m/[0m[K🔄  Restarting existing docker container for "minikube" ...[37m-[0m[K🔄  Restarting existing docker container for "minikube" ...[37m\[0m[K🔄  Restarting existing docker container for "minikube" ...[37m|[0m[K🔄  Restarting existing docker container for "minikube" ...[37m/[0m[?25h[K🔄  Restarting existing docker container for "minikube" ...
+[?25l[K🐳  Preparing Kubernetes v1.35.1 on Docker 29.2.1 ...[37m-[0m[K🐳  Preparing Kubernetes v1.35.1 on Docker 29.2.1 ...[37m\[0m[K🐳  Preparing Kubernetes v1.35.1 on Docker 29.2.1 ...[37m|[0m[K🐳  Preparing Kubernetes v1.35.1 on Docker 29.2.1 ...[37m/[0m[K🐳  Preparing Kubernetes v1.35.1 on Docker 29.2.1 ...[37m-[0m[K🐳  Preparing Kubernetes v1.35.1 on Docker 29.2.1 ...[37m\[0m[K🐳  Preparing Kubernetes v1.35.1 on Docker 29.2.1 ...[37m|[0m[K🐳  Preparing Kubernetes v1.35.1 on Docker 29.2.1 ...[37m/[0m[?25h[K🐳  Preparing Kubernetes v1.35.1 on Docker 29.2.1 ...
+🔎  Verifying Kubernetes components...
+    ▪ Using image gcr.io/k8s-minikube/storage-provisioner:v5
+🌟  Enabled addons: storage-provisioner, default-storageclass
+
+❗  /usr/bin/kubectl is version 1.37.0, which may have incompatibilities with Kubernetes 1.35.1.
+    ▪ Want kubectl v1.35.1? Try 'minikube kubectl -- get pods -A'
+🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+[?2004h]0;root@Ann: /home/administrator/lesson19root@Ann:/home/administrator/lesson19# [7mkubectl cluster-info[27m
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ckubectl cluster-info
+[A
+[?2004lKubernetes control plane is running at https://192.168.49.2:8443
+CoreDNS is running at https://192.168.49.2:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+[?2004h]0;root@Ann: /home/administrator/lesson19root@Ann:/home/administrator/lesson19# [7mminikube stop[27mminikube stop
+[?2004l✋  Stopping node "minikube"  ...
+🛑  Powering off "minikube" via SSH ...
+🛑  1 node stopped.
+[?2004h]0;root@Ann: /home/administrator/lesson19root@Ann:/home/administrator/lesson19# [7mkind create cluster --name lesson19[27m
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ckind create cluster --name lesson19
+[A
+[?2004lCreating cluster "lesson19" ...
+ [32m✓[0m Ensuring node image (kindest/node:v1.37.0) 🖼️
+[?7l⠈⠁ Preparing nodes 📦  [?7h[?7l⠈⠑ Preparing nodes 📦  [?7h[?7l⠈⠱ Preparing nodes 📦  [?7h[?7l⠈⡱ Preparing nodes 📦  [?7h[?7l⢀⡱ Preparing nodes 📦  [?7h[?7l⢄⡱ Preparing nodes 📦  [?7h[?7l⢄⡱ Preparing nodes 📦  [?7h[?7l⢆⡱ Preparing nodes 📦  [?7h[?7l⢎⡱ Preparing nodes 📦  [?7h[?7l⢎⡰ Preparing nodes 📦  [?7h[?7l⢎⡠ Preparing nodes 📦  [?7h[?7l⢎⡀ Preparing nodes 📦  [?7h[?7l⢎⠁ Preparing nodes 📦  [?7h[?7l⠎⠁ Preparing nodes 📦  [?7h[?7l⠊⠁ Preparing nodes 📦  [?7h[?7l⠈⠁ Preparing nodes 📦  [?7h[?7l⠈⠑ Preparing nodes 📦  [?7h[?7l⠈⠱ Preparing nodes 📦  [?7h[?7l⠈⡱ Preparing nodes 📦  [?7h[?7l⢀⡱ Preparing nodes 📦  [?7h[?7l⢄⡱ Preparing nodes 📦  [?7h[?7l⢄⡱ Preparing nodes 📦  [?7h[?7l⢆⡱ Preparing nodes 📦  [?7h[?7l⢎⡱ Preparing nodes 📦  [?7h[?7l⢎⡰ Preparing nodes 📦  [?7h[?7l⢎⡠ Preparing nodes 📦  [?7h[?7l⢎⡀ Preparing nodes 📦  [?7h[?7l⢎⠁ Preparing nodes 📦  [?7h[?7l⠎⠁ Preparing nodes 📦  [?7h[?7l⠊⠁ Preparing nodes 📦  [?7h[?7l⠈⠁ Preparing nodes 📦  [?7h[?7l⠈⠑ Preparing nodes 📦  [?7h[?7l⠈⠱ Preparing nodes 📦  [?7h[?7l⠈⡱ Preparing nodes 📦  [?7h[?7l⢀⡱ Preparing nodes 📦  [?7h[?7l⢄⡱ Preparing nodes 📦  [?7h[?7l⢄⡱ Preparing nodes 📦  [?7h[?7l⢆⡱ Preparing nodes 📦  [?7h[?7l⢎⡱ Preparing nodes 📦  [?7h[?7l⢎⡰ Preparing nodes 📦  [?7h[?7l⢎⡠ Preparing nodes 📦  [?7h[?7l⢎⡀ Preparing nodes 📦  [?7h[?7l⢎⠁ Preparing nodes 📦  [?7h[?7l⠎⠁ Preparing nodes 📦  [?7h[?7l⠊⠁ Preparing nodes 📦  [?7h[?7l⠈⠁ Preparing nodes 📦  [?7h[?7l⠈⠑ Preparing nodes 📦  [?7h[?7l⠈⠱ Preparing nodes 📦  [?7h[?7l⠈⡱ Preparing nodes 📦  [?7h[?7l⢀⡱ Preparing nodes 📦  [?7h [32m✓[0m Preparing nodes 📦 
+[?7l⠈⠁ Writing configuration 📜 [?7h [32m✓[0m Writing configuration 📜
+[?7l⠈⠁ Starting control-plane 🕹️ [?7h[?7l⠈⠑ Starting control-plane 🕹️ [?7h[?7l⠈⠱ Starting control-plane 🕹️ [?7h[?7l⠈⡱ Starting control-plane 🕹️ [?7h[?7l⢀⡱ Starting control-plane 🕹️ [?7h[?7l⢄⡱ Starting control-plane 🕹️ [?7h[?7l⢄⡱ Starting control-plane 🕹️ [?7h[?7l⢆⡱ Starting control-plane 🕹️ [?7h[?7l⢎⡱ Starting control-plane 🕹️ [?7h[?7l⢎⡰ Starting control-plane 🕹️ [?7h[?7l⢎⡠ Starting control-plane 🕹️ [?7h[?7l⢎⡀ Starting control-plane 🕹️ [?7h[?7l⢎⠁ Starting control-plane 🕹️ [?7h[?7l⠎⠁ Starting control-plane 🕹️ [?7h[?7l⠊⠁ Starting control-plane 🕹️ [?7h[?7l⠈⠁ Starting control-plane 🕹️ [?7h[?7l⠈⠑ Starting control-plane 🕹️ [?7h[?7l⠈⠱ Starting control-plane 🕹️ [?7h[?7l⠈⡱ Starting control-plane 🕹️ [?7h[?7l⢀⡱ Starting control-plane 🕹️ [?7h[?7l⢄⡱ Starting control-plane 🕹️ [?7h[?7l⢄⡱ Starting control-plane 🕹️ [?7h[?7l⢆⡱ Starting control-plane 🕹️ [?7h[?7l⢎⡱ Starting control-plane 🕹️ [?7h[?7l⢎⡰ Starting control-plane 🕹️ [?7h[?7l⢎⡠ Starting control-plane 🕹️ [?7h[?7l⢎⡀ Starting control-plane 🕹️ [?7h[?7l⢎⠁ Starting control-plane 🕹️ [?7h[?7l⠎⠁ Starting control-plane 🕹️ [?7h[?7l⠊⠁ Starting control-plane 🕹️ [?7h[?7l⠈⠁ Starting control-plane 🕹️ [?7h[?7l⠈⠑ Starting control-plane 🕹️ [?7h[?7l⠈⠱ Starting control-plane 🕹️ [?7h[?7l⠈⡱ Starting control-plane 🕹️ [?7h[?7l⢀⡱ Starting control-plane 🕹️ [?7h[?7l⢄⡱ Starting control-plane 🕹️ [?7h[?7l⢄⡱ Starting control-plane 🕹️ [?7h[?7l⢆⡱ Starting control-plane 🕹️ [?7h[?7l⢎⡱ Starting control-plane 🕹️ [?7h[?7l⢎⡰ Starting control-plane 🕹️ [?7h[?7l⢎⡠ Starting control-plane 🕹️ [?7h[?7l⢎⡀ Starting control-plane 🕹️ [?7h[?7l⢎⠁ Starting control-plane 🕹️ [?7h[?7l⠎⠁ Starting control-plane 🕹️ [?7h[?7l⠊⠁ Starting control-plane 🕹️ [?7h[?7l⠈⠁ Starting control-plane 🕹️ [?7h[?7l⠈⠑ Starting control-plane 🕹️ [?7h[?7l⠈⠱ Starting control-plane 🕹️ [?7h[?7l⠈⡱ Starting control-plane 🕹️ [?7h[?7l⢀⡱ Starting control-plane 🕹️ [?7h[?7l⢄⡱ Starting control-plane 🕹️ [?7h[?7l⢄⡱ Starting control-plane 🕹️ [?7h[?7l⢆⡱ Starting control-plane 🕹️ [?7h[?7l⢎⡱ Starting control-plane 🕹️ [?7h[?7l⢎⡰ Starting control-plane 🕹️ [?7h[?7l⢎⡠ Starting control-plane 🕹️ [?7h[?7l⢎⡀ Starting control-plane 🕹️ [?7h[?7l⢎⠁ Starting control-plane 🕹️ [?7h[?7l⠎⠁ Starting control-plane 🕹️ [?7h[?7l⠊⠁ Starting control-plane 🕹️ [?7h[?7l⠈⠁ Starting control-plane 🕹️ [?7h[?7l⠈⠑ Starting control-plane 🕹️ [?7h[?7l⠈⠱ Starting control-plane 🕹️ [?7h[?7l⠈⡱ Starting control-plane 🕹️ [?7h[?7l⢀⡱ Starting control-plane 🕹️ [?7h[?7l⢄⡱ Starting control-plane 🕹️ [?7h[?7l⢄⡱ Starting control-plane 🕹️ [?7h[?7l⢆⡱ Starting control-plane 🕹️ [?7h[?7l⢎⡱ Starting control-plane 🕹️ [?7h[?7l⢎⡰ Starting control-plane 🕹️ [?7h[?7l⢎⡠ Starting control-plane 🕹️ [?7h[?7l⢎⡀ Starting control-plane 🕹️ [?7h[?7l⢎⠁ Starting control-plane 🕹️ [?7h[?7l⠎⠁ Starting control-plane 🕹️ [?7h[?7l⠊⠁ Starting control-plane 🕹️ [?7h[?7l⠈⠁ Starting control-plane 🕹️ [?7h[?7l⠈⠑ Starting control-plane 🕹️ [?7h[?7l⠈⠱ Starting control-plane 🕹️ [?7h[?7l⠈⡱ Starting control-plane 🕹️ [?7h [32m✓[0m Starting control-plane 🕹️
+[?7l⠈⠁ Installing CNI 🔌 [?7h[?7l⠈⠑ Installing CNI 🔌 [?7h[?7l⠈⠱ Installing CNI 🔌 [?7h [32m✓[0m Installing CNI 🔌
+[?7l⠈⠁ Installing StorageClass 💾 [?7h[?7l⠈⠑ Installing StorageClass 💾 [?7h [32m✓[0m Installing StorageClass 💾
+Set kubectl context to "kind-lesson19"
+You can now use your cluster with:
+
+kubectl cluster-info --context kind-lesson19
+
+Have a nice day! 👋
+[?2004h]0;root@Ann: /home/administrator/lesson19root@Ann:/home/administrator/lesson19# [7mkubectl cluster-info[27mkubectl cluster-info
+[?2004lKubernetes control plane is running at https://127.0.0.1:43993
+CoreDNS is running at https://127.0.0.1:43993/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+[?2004h]0;root@Ann: /home/administrator/lesson19root@Ann:/home/administrator/lesson19# [7mkubectl create namespace codeby[27mkubectl create namespace codeby
+[?2004lnamespace/codeby created
+[?2004h]0;root@Ann: /home/administrator/lesson19root@Ann:/home/administrator/lesson19# [7mkubectl run nginx --image=nginx:latest -n codeby[27m
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ckubectl run nginx --image=nginx:latest -n codeby
+[A
+[?2004lpod/nginx created
+[?2004h]0;root@Ann: /home/administrator/lesson19root@Ann:/home/administrator/lesson19# [7mkubectl get pods -n codeby[27m
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ckubectl get pods -n codeby
+[A
+[?2004lNAME    READY   STATUS              RESTARTS   AGE
+nginx   0/1     ContainerCreating   0          6s
+[?2004h]0;root@Ann: /home/administrator/lesson19root@Ann:/home/administrator/lesson19# kubectl get pods -n codeby
+[?2004lNAME    READY   STATUS    RESTARTS   AGE
+nginx   1/1     Running   0          10s
+[?2004h]0;root@Ann: /home/administrator/lesson19root@Ann:/home/administrator/lesson19# [7mkubectl delete pod nginx -n codeby[27mkubectl delete pod nginx -n codeby
+[?2004lpod "nginx" deleted from codeby namespace
+[?2004h]0;root@Ann: /home/administrator/lesson19root@Ann:/home/administrator/lesson19# [7mkubectl create deployment nginx \[27m
+[7m  --image=nginx:latest \[27m
+[7m  -n codeby \[27m
+[7m  --dry-run=client \[27m
+[7m  -o yaml > manifests/nginx-imperative.yaml[27m[A[A[A[Akubectl create deployment nginx \
+  --image=nginx:latest \
+  -n codeby \
+  --dry-run=client \
+  -o yaml > manifests/nginx-imperative.yaml.manifests/nginx-imperative.yaml[C[C[C[C[C[C[C[C[C[C[C[C[C/manifests/nginx-imperative.yaml[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+[?2004l[?2004h]0;root@Ann: /home/administrator/lesson19root@Ann:/home/administrator/lesson19# [7mkubectl create -f manifests/nginx-imperative.yaml[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ckubectl create -f manifests/nginx-imperative.yaml
+[?2004ldeployment.apps/nginx created
+[?2004h]0;root@Ann: /home/administrator/lesson19root@Ann:/home/administrator/lesson19# [7mkubectl get deployment,pods -n codeby[27mkubectl get deployment,pods -n codeby
+[?2004lNAME                    READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/nginx   1/1     1            1           5s
+
+NAME                         READY   STATUS    RESTARTS   AGE
+pod/nginx-598cc96cd9-7rp7n   1/1     Running   0          5s
+[?2004h]0;root@Ann: /home/administrator/lesson19root@Ann:/home/administrator/lesson19# [7mkubectl delete -f manifests/nginx-imperative.yaml[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ckubectl delete -f manifests/nginx-imperative.yaml
+[?2004ldeployment.apps "nginx" deleted from codeby namespace
+[?2004h]0;root@Ann: /home/administrator/lesson19root@Ann:/home/administrator/lesson19# cat ma[Kanifests/nginx-declarative.yaml 
+[?2004l
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: codeby
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: nginx
+
+  template:
+    metadata:
+      labels:
+        app: nginx
+
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+[?2004h]0;root@Ann: /home/administrator/lesson19root@Ann:/home/administrator/lesson19# [7mkubectl apply -f manifests/nginx-declarative.yaml[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ckubectl apply -f manifests/nginx-declarative.yaml
+[?2004ldeployment.apps/nginx created
+[?2004h]0;root@Ann: /home/administrator/lesson19root@Ann:/home/administrator/lesson19# [7mkubectl get deployment,pods -n codeby[27mkubectl get deployment,pods -n codeby
+[?2004lNAME                    READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/nginx   1/1     1            1           5s
+
+NAME                         READY   STATUS    RESTARTS   AGE
+pod/nginx-585c5579f6-bjtr6   1/1     Running   0          5s
+[?2004h]0;root@Ann: /home/administrator/lesson19root@Ann:/home/administrator/lesson19# exit
+[?2004lexit
+
+Script done on 2026-08-31 22:57:30+03:00 [COMMAND_EXIT_CODE="0"]
