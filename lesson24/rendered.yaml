@@ -1,0 +1,426 @@
+---
+# Source: wordpress/templates/mysql-networkpolicy.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: wordpress-wordpress-mysql-network-policy
+  namespace: dev
+
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: mysql
+      app.kubernetes.io/instance: wordpress
+
+  policyTypes:
+    - Ingress
+
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: wordpress
+              app.kubernetes.io/instance: wordpress
+
+      ports:
+        - protocol: TCP
+          port: 3306
+---
+# Source: wordpress/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: wordpress-wordpress-secret
+  namespace: dev
+  labels:
+    helm.sh/chart: wordpress-0.1.0
+    app.kubernetes.io/name: wordpress
+    app.kubernetes.io/instance: wordpress
+    app.kubernetes.io/managed-by: Helm
+
+type: Opaque
+
+stringData:
+  MYSQL_ROOT_PASSWORD: "rootpassword"
+  MYSQL_PASSWORD: "wordpresspassword"
+---
+# Source: wordpress/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wordpress-wordpress-config
+  namespace: dev
+  labels:
+    helm.sh/chart: wordpress-0.1.0
+    app.kubernetes.io/name: wordpress
+    app.kubernetes.io/instance: wordpress
+    app.kubernetes.io/managed-by: Helm
+
+data:
+  MYSQL_DATABASE: "wordpress"
+  MYSQL_USER: "wordpress"
+---
+# Source: wordpress/templates/mysql-pv.yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: wordpress-wordpress-mysql-pv
+  labels:
+    helm.sh/chart: wordpress-0.1.0
+    app.kubernetes.io/name: wordpress
+    app.kubernetes.io/instance: wordpress
+    app.kubernetes.io/managed-by: Helm
+spec:
+  capacity:
+    storage: 1Gi
+
+  accessModes:
+    - ReadWriteOnce
+
+  persistentVolumeReclaimPolicy: Retain
+
+  storageClassName: local-storage
+
+  local:
+    path: /data/mysql
+
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - minikube
+---
+# Source: wordpress/templates/wordpress-pv.yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: wordpress-wordpress-wordpress-pv
+  labels:
+    helm.sh/chart: wordpress-0.1.0
+    app.kubernetes.io/name: wordpress
+    app.kubernetes.io/instance: wordpress
+    app.kubernetes.io/managed-by: Helm
+
+spec:
+  capacity:
+    storage: 1Gi
+
+  accessModes:
+    - ReadWriteOnce
+
+  persistentVolumeReclaimPolicy: Retain
+
+  storageClassName: local-storage
+
+  local:
+    path: /data/wordpress
+
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - minikube-m02
+---
+# Source: wordpress/templates/mysql-pvc.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: wordpress-wordpress-mysql-pvc
+  namespace: dev
+  labels:
+    helm.sh/chart: wordpress-0.1.0
+    app.kubernetes.io/name: wordpress
+    app.kubernetes.io/instance: wordpress
+    app.kubernetes.io/managed-by: Helm
+
+spec:
+  accessModes:
+    - ReadWriteOnce
+
+  storageClassName: local-storage
+
+  resources:
+    requests:
+      storage: 1Gi
+---
+# Source: wordpress/templates/wordpress-pvc.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: wordpress-wordpress-wordpress-pvc
+  namespace: dev
+  labels:
+    helm.sh/chart: wordpress-0.1.0
+    app.kubernetes.io/name: wordpress
+    app.kubernetes.io/instance: wordpress
+    app.kubernetes.io/managed-by: Helm
+
+spec:
+  accessModes:
+    - ReadWriteOnce
+
+  storageClassName: local-storage
+
+  resources:
+    requests:
+      storage: 1Gi
+---
+# Source: wordpress/templates/mysql-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress-wordpress-mysql
+  namespace: dev
+  labels:
+    helm.sh/chart: wordpress-0.1.0
+    app.kubernetes.io/name: wordpress
+    app.kubernetes.io/instance: wordpress
+    app.kubernetes.io/managed-by: Helm
+
+spec:
+  type: ClusterIP
+
+  selector:
+    app.kubernetes.io/name: mysql
+    app.kubernetes.io/instance: wordpress
+
+  ports:
+    - name: mysql
+      port: 3306
+      targetPort: 3306
+      protocol: TCP
+---
+# Source: wordpress/templates/wordpress-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress-wordpress-wordpress
+  namespace: dev
+  labels:
+    helm.sh/chart: wordpress-0.1.0
+    app.kubernetes.io/name: wordpress
+    app.kubernetes.io/instance: wordpress
+    app.kubernetes.io/managed-by: Helm
+
+spec:
+  type: NodePort
+
+  selector:
+    app.kubernetes.io/name: wordpress
+    app.kubernetes.io/instance: wordpress
+
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      protocol: TCP
+      nodePort: 30080
+---
+# Source: wordpress/templates/wordpress-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress-wordpress-wordpress
+  namespace: dev
+  labels:
+    helm.sh/chart: wordpress-0.1.0
+    app.kubernetes.io/name: wordpress
+    app.kubernetes.io/instance: wordpress
+    app.kubernetes.io/managed-by: Helm
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: wordpress
+      app.kubernetes.io/instance: wordpress
+
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: wordpress
+        app.kubernetes.io/instance: wordpress
+
+    spec:
+      nodeName: minikube-m02
+
+      containers:
+        - name: wordpress
+
+          image: "wordpress:latest"
+
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - name: http
+              containerPort: 80
+
+          env:
+            - name: WORDPRESS_DB_HOST
+              value: "wordpress-wordpress-mysql:3306"
+
+            - name: WORDPRESS_DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: wordpress-wordpress-config
+                  key: MYSQL_DATABASE
+
+            - name: WORDPRESS_DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: wordpress-wordpress-config
+                  key: MYSQL_USER
+
+            - name: WORDPRESS_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: wordpress-wordpress-secret
+                  key: MYSQL_PASSWORD
+
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+
+          volumeMounts:
+            - name: wordpress-storage
+              mountPath: /var/www/html
+
+      volumes:
+        - name: wordpress-storage
+          persistentVolumeClaim:
+            claimName: wordpress-wordpress-wordpress-pvc
+---
+# Source: wordpress/templates/wordpress-hpa.yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: wordpress-wordpress-wordpress-hpa
+  namespace: dev
+
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: wordpress-wordpress-wordpress
+
+  minReplicas: 1
+  maxReplicas: 5
+
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50
+---
+# Source: wordpress/templates/mysql-statefulset.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: wordpress-wordpress-mysql
+  namespace: dev
+  labels:
+    helm.sh/chart: wordpress-0.1.0
+    app.kubernetes.io/name: wordpress
+    app.kubernetes.io/instance: wordpress
+    app.kubernetes.io/managed-by: Helm
+
+spec:
+  serviceName: wordpress-wordpress-mysql
+
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mysql
+      app.kubernetes.io/instance: wordpress
+
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: mysql
+        app.kubernetes.io/instance: wordpress
+
+    spec:
+      nodeName: minikube
+
+      containers:
+        - name: mysql
+
+          image: "mysql:8.0"
+
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - name: mysql
+              containerPort: 3306
+
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: wordpress-wordpress-secret
+                  key: MYSQL_ROOT_PASSWORD
+
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: wordpress-wordpress-config
+                  key: MYSQL_DATABASE
+
+            - name: MYSQL_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: wordpress-wordpress-config
+                  key: MYSQL_USER
+
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: wordpress-wordpress-secret
+                  key: MYSQL_PASSWORD
+
+          volumeMounts:
+            - name: mysql-storage
+              mountPath: /var/lib/mysql
+
+      volumes:
+        - name: mysql-storage
+          persistentVolumeClaim:
+            claimName: wordpress-wordpress-mysql-pvc
+---
+# Source: wordpress/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wordpress-wordpress-wordpress-ingress
+  namespace: dev
+
+spec:
+  ingressClassName: nginx
+
+  rules:
+    - host: wordpress.local
+
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+
+            backend:
+              service:
+                name: wordpress-wordpress-wordpress
+                port:
+                  number: 80

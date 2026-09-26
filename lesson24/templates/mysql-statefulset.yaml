@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "wordpress.mysql.fullname" . }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "wordpress.labels" . | nindent 4 }}
+
+spec:
+  serviceName: {{ include "wordpress.mysql.fullname" . }}
+
+  replicas: {{ .Values.mysql.replicas }}
+
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mysql
+      app.kubernetes.io/instance: {{ .Release.Name }}
+
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: mysql
+        app.kubernetes.io/instance: {{ .Release.Name }}
+
+    spec:
+      nodeName: {{ .Values.mysql.storage.nodeName }}
+
+      containers:
+        - name: mysql
+
+          image: "{{ .Values.mysql.image.repository }}:{{ .Values.mysql.image.tag }}"
+
+          imagePullPolicy: {{ .Values.mysql.image.pullPolicy }}
+
+          ports:
+            - name: mysql
+              containerPort: 3306
+
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "wordpress.fullname" . }}-secret
+                  key: MYSQL_ROOT_PASSWORD
+
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "wordpress.fullname" . }}-config
+                  key: MYSQL_DATABASE
+
+            - name: MYSQL_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "wordpress.fullname" . }}-config
+                  key: MYSQL_USER
+
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "wordpress.fullname" . }}-secret
+                  key: MYSQL_PASSWORD
+
+          volumeMounts:
+            - name: mysql-storage
+              mountPath: /var/lib/mysql
+
+      volumes:
+        - name: mysql-storage
+          persistentVolumeClaim:
+            claimName: {{ include "wordpress.mysql.fullname" . }}-pvc

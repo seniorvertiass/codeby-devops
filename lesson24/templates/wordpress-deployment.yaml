@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "wordpress.wordpress.fullname" . }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "wordpress.labels" . | nindent 4 }}
+
+spec:
+  replicas: {{ .Values.wordpress.replicas }}
+
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: wordpress
+      app.kubernetes.io/instance: {{ .Release.Name }}
+
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: wordpress
+        app.kubernetes.io/instance: {{ .Release.Name }}
+
+    spec:
+      nodeName: {{ .Values.wordpress.storage.nodeName }}
+
+      containers:
+        - name: wordpress
+
+          image: "{{ .Values.wordpress.image.repository }}:{{ .Values.wordpress.image.tag }}"
+
+          imagePullPolicy: {{ .Values.wordpress.image.pullPolicy }}
+
+          ports:
+            - name: http
+              containerPort: 80
+
+          env:
+            - name: WORDPRESS_DB_HOST
+              value: "{{ include "wordpress.mysql.fullname" . }}:{{ .Values.mysql.service.port }}"
+
+            - name: WORDPRESS_DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "wordpress.fullname" . }}-config
+                  key: MYSQL_DATABASE
+
+            - name: WORDPRESS_DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "wordpress.fullname" . }}-config
+                  key: MYSQL_USER
+
+            - name: WORDPRESS_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "wordpress.fullname" . }}-secret
+                  key: MYSQL_PASSWORD
+
+          resources:
+            {{- toYaml .Values.wordpress.resources | nindent 12 }}
+
+          volumeMounts:
+            - name: wordpress-storage
+              mountPath: /var/www/html
+
+      volumes:
+        - name: wordpress-storage
+          persistentVolumeClaim:
+            claimName: {{ include "wordpress.wordpress.fullname" . }}-pvc

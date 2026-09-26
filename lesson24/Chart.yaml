@@ -1,0 +1,7 @@
+apiVersion: v2
+name: wordpress
+description: Helm chart for WordPress with MySQL
+type: application
+
+version: 0.1.0
+appVersion: "1.0"
