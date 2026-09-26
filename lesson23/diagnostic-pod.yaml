@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: diagnostic
+  namespace: dev
+  labels:
+    app: diagnostic
+
+spec:
+  serviceAccountName: diagnostic-sa
+
+  containers:
+    - name: diagnostic
+      image: bitnami/kubectl:latest 
+
+      command:
+        - /bin/sh
+        - -c
+        - |
+          echo "========================================"
+          echo " Kubernetes Diagnostic Pod"
+          echo "========================================"
+          echo ""
+
+          echo "All pods in namespace dev:"
+          kubectl get pods -n dev -o wide
+
+          echo ""
+          echo "========================================"
+          echo " WordPress pods"
+          echo "========================================"
+
+          kubectl get pods \
+            -n dev \
+            -l app=wordpress \
+            -o wide
+
+          echo ""
+          echo "========================================"
+          echo " Diagnostic finished"
+          echo "========================================"
+
+          sleep 3600
