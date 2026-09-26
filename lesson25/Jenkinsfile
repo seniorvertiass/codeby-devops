@@ -6,13 +6,15 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'mvn clean package'
+                dir('lesson25') {
+                    sh 'mvn clean package'
+                }
             }
         }
 
         stage('Archive artifact') {
             steps {
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                archiveArtifacts artifacts: 'lesson25/target/*.jar', fingerprint: true
             }
         }
     }
