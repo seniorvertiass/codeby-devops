@@ -1,0 +1,21 @@
+pipeline {
+    agent {
+        label 'maven'
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                dir('lesson25') {
+                    sh 'mvn clean package'
+                }
+            }
+        }
+
+        stage('Archive artifact') {
+            steps {
+                archiveArtifacts artifacts: 'lesson25/target/*.jar', fingerprint: true
+            }
+        }
+    }
+}
