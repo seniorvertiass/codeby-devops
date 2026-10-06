@@ -1,0 +1,214 @@
+pipeline {
+    agent none
+
+    stages {
+        stage('Detect changes') {
+            agent {
+                label 'maven'
+            }
+
+            steps {
+                script {
+                    def previousCommit = sh(
+                        script: 'git rev-parse HEAD^ 2>/dev/null || true',
+                        returnStdout: true
+                    ).trim()
+
+                    if (previousCommit) {
+                        env.CHANGED_FILES = sh(
+                            script: "git diff --name-only ${previousCommit} HEAD",
+                            returnStdout: true
+                        ).trim()
+                    } else {
+                        env.CHANGED_FILES = sh(
+                            script: 'git show --format= --name-only HEAD',
+                            returnStdout: true
+                        ).trim()
+                    }
+
+                    echo "Changed files:"
+                    echo env.CHANGED_FILES ?: 'No changed files'
+                }
+            }
+        }
+
+        stage('Applications') {
+            parallel {
+
+                stage('Hello World') {
+                    stages {
+                        stage('Build') {
+                            when {
+                                expression {
+                                    env.CHANGED_FILES
+                                        .split('\n')
+                                        .any { it.startsWith('lesson26/hello-world/') }
+                                }
+                            }
+                            agent {
+                                label 'maven'
+                            }
+                            steps {
+                                dir('lesson26/hello-world') {
+                                    sh 'mvn clean package'
+                                }
+                            }
+                        }
+
+                        stage('Test') {
+                            when {
+                                expression {
+                                    env.CHANGED_FILES
+                                        .split('\n')
+                                        .any { it.startsWith('lesson26/hello-world/') }
+                                }
+                            }
+                            agent {
+                                label 'maven'
+                            }
+                            steps {
+                                dir('lesson26/hello-world') {
+                                    sh 'mvn test'
+                                }
+                            }
+                        }
+
+                        stage('Deploy') {
+                            when {
+                                expression {
+                                    env.CHANGED_FILES
+                                        .split('\n')
+                                        .any { it.startsWith('lesson26/hello-world/') }
+                                }
+                            }
+                            agent {
+                                label 'maven'
+                            }
+                            steps {
+                                dir('lesson26/hello-world') {
+                                     sh 'java -cp target/classes com.mycompany.app.App'
+                                }
+                            }
+                        }
+                    }
+                }
+
+                stage('Hello Jenkins') {
+                    stages {
+                        stage('Build') {
+                            when {
+                                expression {
+                                    env.CHANGED_FILES
+                                        .split('\n')
+                                        .any { it.startsWith('lesson26/hello-jenkins/') }
+                                }
+                            }
+                            agent {
+                                label 'maven'
+                            }
+                            steps {
+                                dir('lesson26/hello-jenkins') {
+                                    sh 'mvn clean package'
+                                }
+                            }
+                        }
+
+                        stage('Test') {
+                            when {
+                                expression {
+                                    env.CHANGED_FILES
+                                        .split('\n')
+                                        .any { it.startsWith('lesson26/hello-jenkins/') }
+                                }
+                            }
+                            agent {
+                                label 'maven'
+                            }
+                            steps {
+                                dir('lesson26/hello-jenkins') {
+                                    sh 'mvn test'
+                                }
+                            }
+                        }
+
+                        stage('Deploy') {
+                            when {
+                                expression {
+                                    env.CHANGED_FILES
+                                        .split('\n')
+                                        .any { it.startsWith('lesson26/hello-jenkins/') }
+                                }
+                            }
+                            agent {
+                                label 'maven'
+                            }
+                            steps {
+                                dir('lesson26/hello-jenkins') {
+                                     sh 'java -cp target/classes com.mycompany.app.App'
+                                }
+                            }
+                        }
+                    }
+                }
+
+                stage('Hello Devops') {
+                    stages {
+                        stage('Build') {
+                            when {
+                                expression {
+                                    env.CHANGED_FILES
+                                        .split('\n')
+                                        .any { it.startsWith('lesson26/hello-devops/') }
+                                }
+                            }
+                            agent {
+                                label 'maven'
+                            }
+                            steps {
+                                dir('lesson26/hello-devops') {
+                                    sh 'mvn clean package'
+                                }
+                            }
+                        }
+
+                        stage('Test') {
+                            when {
+                                expression {
+                                    env.CHANGED_FILES
+                                        .split('\n')
+                                        .any { it.startsWith('lesson26/hello-devops/') }
+                                }
+                            }
+                            agent {
+                                label 'maven'
+                            }
+                            steps {
+                                dir('lesson26/hello-devops') {
+                                    sh 'mvn test'
+                                }
+                            }
+                        }
+
+                        stage('Deploy') {
+                            when {
+                                expression {
+                                    env.CHANGED_FILES
+                                        .split('\n')
+                                        .any { it.startsWith('lesson26/hello-devops/') }
+                                }
+                            }
+                            agent {
+                                label 'maven'
+                            }
+                            steps {
+                                dir('lesson26/hello-devops') {
+                                     sh 'java -cp target/classes com.mycompany.app.App'
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
