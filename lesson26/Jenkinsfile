@@ -86,7 +86,7 @@ pipeline {
                             }
                             steps {
                                 dir('lesson26/hello-world') {
-                                    sh 'java -jar target/hello-world-1.0-SNAPSHOT.jar'
+                                     sh 'java -cp target/classes com.mycompany.app.App'
                                 }
                             }
                         }
@@ -144,7 +144,7 @@ pipeline {
                             }
                             steps {
                                 dir('lesson26/hello-jenkins') {
-                                    sh 'java -jar target/hello-jenkins-1.0-SNAPSHOT.jar'
+                                     sh 'java -cp target/classes com.mycompany.app.App'
                                 }
                             }
                         }
@@ -202,7 +202,7 @@ pipeline {
                             }
                             steps {
                                 dir('lesson26/hello-devops') {
-                                    sh 'java -jar target/hello-devops-1.0-SNAPSHOT.jar'
+                                     sh 'java -cp target/classes com.mycompany.app.App'
                                 }
                             }
                         }
