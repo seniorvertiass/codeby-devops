@@ -1,0 +1,117 @@
+pipeline {
+    agent { label 'docker-agent' }
+
+    options {
+        timestamps()
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(numToKeepStr: '20'))
+    }
+
+    environment {
+        IMAGE_NAME = "${YCR_IMAGE_NAME ?: 'hello-app'}"
+        APP_NAMESPACE = "${K8S_NAMESPACE ?: 'hello-app'}"
+        RELEASE_NAME = "${HELM_RELEASE ?: 'hello-app'}"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps { checkout scm }
+        }
+
+        stage('Test and Package') {
+            steps {
+                sh 'mvn -B -ntp -f app/pom.xml clean verify'
+            }
+            post {
+                always {
+                    junit allowEmptyResults: true, testResults: 'app/target/surefire-reports/*.xml'
+                    archiveArtifacts allowEmptyArchive: true, artifacts: 'app/target/*.jar'
+                }
+            }
+        }
+
+        stage('Build and Push Image') {
+            when {
+                anyOf {
+                    branch 'main'
+                    branch 'develop'
+                    buildingTag()
+                }
+            }
+            steps {
+                script {
+                    if (!env.YCR_REGISTRY_ID?.trim()) {
+                        error('Set Jenkins parameter/environment variable YCR_REGISTRY_ID to your Yandex Container Registry ID')
+                    }
+                    env.GIT_SHA = sh(script: 'git rev-parse --short=12 HEAD', returnStdout: true).trim()
+                    env.IMAGE_REPOSITORY = "cr.yandex/${env.YCR_REGISTRY_ID}/${env.IMAGE_NAME}"
+                    env.IMAGE_TAG = env.GIT_SHA
+                    env.RELEASE_VERSION = env.TAG_NAME ?: "build-${env.BUILD_NUMBER}"
+                }
+                withCredentials([file(credentialsId: 'ycr-sa-key', variable: 'YC_KEY_FILE')]) {
+                    sh '''
+                        set +x
+                        cat "$YC_KEY_FILE" | docker login --username json_key --password-stdin cr.yandex
+                        docker build --pull -t "$IMAGE_REPOSITORY:$IMAGE_TAG" -t "$IMAGE_REPOSITORY:$RELEASE_VERSION" .
+                        docker push "$IMAGE_REPOSITORY:$IMAGE_TAG"
+                        docker push "$IMAGE_REPOSITORY:$RELEASE_VERSION"
+                        docker logout cr.yandex
+                    '''
+                }
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            when {
+                anyOf {
+                    branch 'main'
+                    branch 'develop'
+                    buildingTag()
+                }
+            }
+            steps {
+                withCredentials([file(credentialsId: 'kubeconfig-capstone', variable: 'KUBECONFIG_FILE')]) {
+                    sh '''
+                        set -eu
+                        export KUBECONFIG="$KUBECONFIG_FILE"
+                        helm upgrade --install "$RELEASE_NAME" ./helm/hello-app \
+                          --namespace "$APP_NAMESPACE" --create-namespace \
+                          --set image.repository="$IMAGE_REPOSITORY" \
+                          --set image.tag="$IMAGE_TAG" \
+                          --wait --timeout 5m
+                        kubectl -n "$APP_NAMESPACE" rollout status deployment/"$RELEASE_NAME" --timeout=180s
+                        kubectl -n "$APP_NAMESPACE" get service "$RELEASE_NAME"
+                    '''
+                }
+            }
+        }
+
+        stage('Smoke Test') {
+            when {
+                anyOf {
+                    branch 'main'
+                    branch 'develop'
+                    buildingTag()
+                }
+            }
+            steps {
+                withCredentials([file(credentialsId: 'kubeconfig-capstone', variable: 'KUBECONFIG_FILE')]) {
+                    sh '''
+                        set -eu
+                        export KUBECONFIG="$KUBECONFIG_FILE"
+                        kubectl -n "$APP_NAMESPACE" run smoke-"$BUILD_NUMBER" \
+                          --image=curlimages/curl:8.12.1 --restart=Never \
+                          --rm -i --command -- curl --fail --retry 8 --retry-delay 3 \
+                          "http://$RELEASE_NAME.$APP_NAMESPACE.svc.cluster.local/"
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        success { echo 'CI/CD pipeline completed successfully.' }
+        failure { echo 'Pipeline failed. Review the failed stage and console log.' }
+        always { cleanWs() }
+    }
+}

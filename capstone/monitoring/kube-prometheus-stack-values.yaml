@@ -1,0 +1,13 @@
+grafana:
+  enabled: true
+  adminPassword: "CHANGE_ME_VIA_SECRET_OR_HELM_OVERRIDE"
+  service:
+    type: ClusterIP
+prometheus:
+  prometheusSpec:
+    retention: 7d
+    serviceMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorNamespaceSelector: {}
+    serviceMonitorSelector: {}
+alertmanager:
+  enabled: true
