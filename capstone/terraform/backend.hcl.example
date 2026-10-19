@@ -1,0 +1,13 @@
+bucket = "REPLACE_WITH_EXISTING_OBJECT_STORAGE_BUCKET"
+key    = "devops-capstone/terraform.tfstate"
+region = "ru-central1"
+endpoint = "storage.yandexcloud.net"
+
+skip_region_validation      = true
+skip_credentials_validation = true
+skip_metadata_api_check     = true
+force_path_style            = true
+
+# Supply credentials through environment variables instead of storing them here:
+# AWS_ACCESS_KEY_ID
+# AWS_SECRET_ACCESS_KEY

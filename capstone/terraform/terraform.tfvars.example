@@ -1,0 +1,13 @@
+cloud_id                = "REPLACE_WITH_CLOUD_ID"
+folder_id               = "REPLACE_WITH_FOLDER_ID"
+service_account_id      = "REPLACE_WITH_TERRAFORM_SERVICE_ACCOUNT_ID"
+node_service_account_id = "REPLACE_WITH_NODE_SERVICE_ACCOUNT_ID"
+
+zone           = "ru-central1-a"
+network_name   = "devops-capstone-network"
+registry_name  = "devops-capstone-registry"
+cluster_name   = "devops-capstone-k8s"
+node_count     = 2
+node_cores     = 2
+node_memory    = 4
+node_disk_size = 64
